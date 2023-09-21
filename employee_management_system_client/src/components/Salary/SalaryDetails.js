@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import { Link } from "react-router-dom";
 import config from "../../utils/config";
-import { withRouter } from "react-router";
-import { useSearchParams, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const HopitalDetails = () => {
   // Function for edit //

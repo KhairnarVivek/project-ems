@@ -15,10 +15,6 @@ public class State {
 	private long state_id;
 	private String state_name;
 	
-//	@OneToOne(fetch=FetchType.LAZY, mappedBy="state")
-//    private Employee employee;
-	
-	
 	public State() {
 		
 	}

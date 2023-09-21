@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import config from "../../utils/config";
 export const getAllUser=()=>async dispatch=>
 {
     console.log("I am here");

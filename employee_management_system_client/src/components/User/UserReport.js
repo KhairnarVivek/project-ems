@@ -76,12 +76,14 @@ export default class UserReport extends React.Component {
             </div>
             <div>
               <div className="add-button btn btn-success">
-                <Link to="/register">Add New Employee</Link>
-              </div>
+                <Link to="/register">Add New Employee</Link>  
+              </div> 
+              
               <table className="table table-striped table-bordered table-hover">
                 <thead className="thead-dark">
                   <tr>
                     <th scope="col">ID</th>
+                    <th scope="col">Employee Department</th>
                     <th scope="col">User Name</th>
                     <th scope="col">Contact No</th>
                     <th scope="col">Email</th>
@@ -93,6 +95,7 @@ export default class UserReport extends React.Component {
                   {this.state.users.map((user, index) => (
                     <tr>
                       <th scope="row">{index + 1}</th>
+                      <td key={user.user_id}>{user.user_department}</td>
                       <td>
                         {user.user_first_name} {user.user_last_name}
                       </td>

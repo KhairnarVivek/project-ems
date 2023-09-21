@@ -55,17 +55,17 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/employees/all-employees")
-	public ArrayList getAllEmployeeFields() {
+	public ArrayList<HashMap<String, String>> getAllEmployeeFields() {
 		 Query q = entityManager.createQuery("SELECT emp, cn, dn from employee emp, country cn, department dn  WHERE employee_department = department_id AND employee_country = country_id");
 		 List<Object[]> employee = q.getResultList();
-		 ArrayList<HashMap<String, String>> resultArray = new ArrayList();
+		 ArrayList<HashMap<String, String>> resultArray = new ArrayList<HashMap<String, String>>();
 		 
 		 for ( Object[] row : employee ) {
 			  Employee employee_details = (Employee)row[ 0 ];
 			  Country country_details = (Country)row[ 1 ];
 			  Department department_details = (Department)row[ 2 ];
 			  
-			    HashMap<String, String> results = new HashMap();
+			    HashMap<String, String> results = new HashMap<String, String>();
 			    
 			    results.put("department_name",department_details.getDepartment_name());
 			    results.put("country_name",country_details.getCountry_name());

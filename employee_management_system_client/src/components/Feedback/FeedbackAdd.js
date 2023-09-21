@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useSearchParams, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { setAlert } from "../../actions/alert";
 import { PropTypes } from "prop-types";
 import axios from "axios";
@@ -40,12 +40,11 @@ const FeedbackAdd = ({ setAlert, feedback, isAuthenticated }) => {
   useEffect(() => {
     if (id) {
       axios.get(`${config.api_url}/feedback/${id}`).then((res) => {
-        console.log("Edit Data");
         console.log(res.data);
         setFormData(res.data);
       });
     }
-  }, []);
+  }, [id]);
 
   // Handlinng Change Event
   const onChange = (e) =>
@@ -242,6 +241,7 @@ const FeedbackAdd = ({ setAlert, feedback, isAuthenticated }) => {
                   </section>
                   <section className="float-end col text-center">
                     <iframe
+                      title="googleMaps"
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3810.562425998801!2d78.47268107470748!3d17.240004107035173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcba57e67a2bc25%3A0xc0d5031672bc95cd!2sCentre%20for%20Development%20of%20Advanced%20Computing!5e0!3m2!1sen!2sin!4v1693456631227!5m2!1sen!2sin"
                       width="400"
                       height="300"

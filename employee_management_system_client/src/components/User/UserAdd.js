@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
-  useSearchParams,
   useNavigate,
   useParams,
   useLocation,
@@ -24,7 +23,7 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
 
   let page_heading = "Employee Registrations";
 
-  if (window.sessionStorage.getItem("user_level_id") == "2") {
+  if (window.sessionStorage.getItem("user_level_id") === "2") {
     page_heading = "My Account";
   }
 
@@ -52,6 +51,13 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
     },
   ]);
 
+  const [departmentDropDown, setDepartmentDropDown] = useState([
+    {
+      department_id: "",
+      department_name: "",
+    },
+  ]);
+
   const [stateDropDown, setStateDropDown] = useState([
     {
       state_id: "",
@@ -62,6 +68,7 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
   // Creating FormData Form elements ////
   const [formData, setFormData] = useState({
     user_id: "",
+    department_id:"",
     user_level_id: "",
     user_email: "",
     user_password: "",
@@ -80,6 +87,7 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
   function reset() {
     setFormData({
       user_id: "",
+      department_id:"",
       user_level_id: "",
       user_email: "",
       user_password: "",
@@ -97,6 +105,7 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
   }
 
   var isUser = window.sessionStorage.getItem("user_level_id") === "2";
+  var isAdmin = window.sessionStorage.getItem("user_level_id") === "1";
 
   useEffect(() => {
     if (location.state != null) {
@@ -115,6 +124,13 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
       });
     }
 
+    // Get Department Dropdown
+    axios.get(`${config.api_url}/departments`).then((res) => {
+      console.log(res.data);
+      setDepartmentDropDown(res.data);
+    });
+
+
     // Get Country Dropdown
     axios.get(`${config.api_url}/countries`).then((res) => {
       console.log(res.data);
@@ -131,7 +147,7 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
     axios.get(`${config.api_url}/roles`).then((res) => {
       setroleDropDown(res.data);
     });
-  }, []);
+  }, [id, location.state]);
 
   // Handlinng Change Event
   const onChange = (e) =>
@@ -140,7 +156,7 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
   // Handling Submit
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (formData.user_password != formData.user_confirm_password) {
+    if (formData.user_password !== formData.user_confirm_password) {
       console.log(
         formData.user_password + " AND " + formData.user_confirm_password
       );
@@ -181,7 +197,7 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
         url: `${config.api_url}/user/check-user-exits/${formData.user_email}`,
       }).then(function (user_data) {
         console.log("user data");
-        if (user_data.data.length == 0) {
+        if (user_data.data.length === 0) {
           axios({
             method: "post",
             url: `${config.api_url}/user`,
@@ -192,14 +208,7 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
               console.log("Success  : ");
               console.log(response);
               alert.success("An account has been successfully registered.");
-              navigate("/Dashboard");
-              // navigate("/login", {
-              //   state: {
-              //     msg: "An Employee account has been successfully registered.",
-              //     error_type: "alert-success",
-              //   },
-              // });
-              // navigate("/UserLogin")
+              navigate("/user-report");
             })
             .catch(function (response) {
               //handle error
@@ -252,9 +261,6 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
                   )}
                   <div className="lgfrm">
                     <form onSubmit={onSubmit} className="form-horizontal">
-                      {/* <div className="alert alert-{{type}}" role="alert">
-                              {{msg}}
-                           </div> */}
                       <div>
                         <div className="row">
                           <div className="col">
@@ -380,19 +386,41 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
                           />
                         </div>
                       </div>
+
+
                       <div className="row">
-                        <div className="col">
-                          <label htmlFor="name">Nationality</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="user_nationalty"
-                            required
-                            name="user_nationalty"
-                            value={formData.user_nationalty}
-                            onChange={(e) => onChange(e)}
-                          />
+                        
+                          <div className="col">
+                            <label htmlFor="name">Nationality</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="user_nationalty"
+                              required
+                              name="user_nationalty"
+                              value={formData.user_nationalty}
+                              onChange={(e) => onChange(e)}
+                            />
+                         
                         </div>
+                          <div className="col">
+                            <label htmlFor="name">Department name</label>
+                            <select
+                              name="user_department"
+                              value={formData.user_department}
+                              onChange={(e) => onChange(e)}
+                              className="form-control"
+                              required
+                              disabled={isUser}
+                            >
+                              <option>Department Name</option>
+                              {departmentDropDown.map((option, idx) => (
+                                <option key={idx} value={option.department_name}>
+                                  {option.department_name}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
                       </div>
                       <div className="row">
                         <div className="col">
@@ -432,8 +460,8 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
                             className="form-control"
                           >
                             <option>Select State</option>
-                            {stateDropDown.map((option, id) => (
-                              <option key={id} value={option.state_id}>
+                            {stateDropDown.map((option, idx) => (
+                              <option key={idx} value={option.state_id}>
                                 {option.state_name}
                               </option>
                             ))}
@@ -473,9 +501,16 @@ const UserAdd = ({ setAlert, user, isAuthenticated }) => {
                         &nbsp;&nbsp;
                         <Link to={`${isUser ? "/Dashboard" : "/user-report"}`}>
                           <button type="submit" className="btn btn-default">
-                            Back
+                            Back to Employee Report
                           </button>
                         </Link>
+                        &nbsp;&nbsp;
+                        <Link to={`${isUser ? "/Dashboard" : "/admin-details"}`}>
+                          <button type="submit" className="btn btn-default">
+                            Back to Admin Report
+                          </button>
+                        </Link>
+
                       </div>
                     </form>
                   </div>

@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+
 import {
-  useSearchParams,
   useNavigate,
-  useParams,
   useLocation,
 } from "react-router-dom";
-import { setAlert } from "../../actions/alert";
-import { PropTypes } from "prop-types";
 import axios from "axios";
 import config from "../../utils/config";
 import { useAlert } from "react-alert";

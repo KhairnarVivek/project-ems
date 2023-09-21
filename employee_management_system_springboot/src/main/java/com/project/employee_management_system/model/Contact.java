@@ -19,6 +19,7 @@ public class Contact {
 	private String contact_subject;
 	private String contact_message;
 	
+	
 	public Contact() {
 		
 	}

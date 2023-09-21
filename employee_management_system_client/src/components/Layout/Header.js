@@ -1,9 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { PropTypes } from "prop-types";
-import { useSearchParams, useNavigate, useParams } from "react-router-dom";
-import { LOGOUT } from "../../actions/types";
+import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 
 const Header = () => {
@@ -43,7 +40,7 @@ const Header = () => {
         <Link to="/Dashboard">Dashboard</Link>
       </li>
       <li className="dropdown">
-        <a href="#" data-toggle="dropdown" className="dropdown-toggle">
+        <a href="##" data-toggle="dropdown" className="dropdown-toggle">
           Add New<b className="caret"></b>
         </a>
         <ul className="dropdown-menu">
@@ -52,25 +49,31 @@ const Header = () => {
               Add New Employee
             </Link>
           </li>
-          {/* <li>
-            <Link className="dropdown-item" to="/leave-add">
-              Add New Leave
-            </Link>
-          </li> */}
           <li>
             <Link className="dropdown-item" to="/salary-add">
               Add New Salary
             </Link>
           </li>
+          <li>
+            <Link className="dropdown-item" to="/AddDepartments">
+              Add New Department
+            </Link>
+          </li>
         </ul>
       </li>
       <li className="dropdown">
-        <a href="#" data-toggle="dropdown" className="dropdown-toggle">
+        <a href="#1" data-toggle="dropdown" className="dropdown-toggle">
           Reports<b className="caret"></b>
         </a>
-        <ul className="dropdown-menu">
+          <ul className="dropdown-menu">
+            <li>
+          <Link to="/admin-details">Admin Details</Link>
+        </li>
           <li>
             <Link to="/user-report">Employee Report</Link>
+          </li>
+          <li>
+        <Link to="/departments">Departments</Link>
           </li>
           <li>
             <Link to="/salary-report">Salary Report</Link>
@@ -103,7 +106,7 @@ const Header = () => {
         <Link to="/Dashboard">Dashboard</Link>
       </li>
       <li className="dropdown">
-        <a href="#" data-toggle="dropdown" className="dropdown-toggle">
+        <a href="#2" data-toggle="dropdown" className="dropdown-toggle">
           {username}
           <b className="caret"></b>
         </a>
@@ -141,7 +144,7 @@ const Header = () => {
         <Link to="/Dashboard">Dashboard</Link>
       </li>
       <li className="dropdown">
-        <a href="#" data-toggle="dropdown" className="dropdown-toggle">
+        <a href="#3" data-toggle="dropdown" className="dropdown-toggle">
           {username}
           <b className="caret"></b>
         </a>

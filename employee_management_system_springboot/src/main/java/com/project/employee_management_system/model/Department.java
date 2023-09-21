@@ -17,8 +17,13 @@ public class Department {
 	private long department_id;
 	private String department_name;
 	
+	
+
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="department")
     private Employee employee;
+	
+//	@OneToOne(fetch=FetchType.LAZY, mappedBy="department")
+//    private User user;
 	
 	
 	public Department() {
@@ -58,5 +63,7 @@ public class Department {
 	public void setDepartment_name(String department_name) {
 		this.department_name = department_name;
 	}
+	
+	
 	
 }

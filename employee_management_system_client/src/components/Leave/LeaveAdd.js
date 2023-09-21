@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
-  useSearchParams,
   useNavigate,
   useParams,
   Link,
@@ -68,7 +67,6 @@ const LeaveAdd = ({ setAlert, leave, isAuthenticated }) => {
   useEffect(() => {
     if (id) {
       axios.get(`${config.api_url}/leaves/${id}`).then((res) => {
-        console.log("Edit Data");
         console.log(res.data);
         setFormData(res.data);
       });

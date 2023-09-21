@@ -1,6 +1,7 @@
+import React from 'react';
 import axios from 'axios';
-
-export default class CommonFunction extends Component {
+import config from "./config";
+export default class CommonFunction extends React.Component {
 
   /**
     * Function for getting dropdown
