@@ -1,12 +1,10 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { setAlert } from "../../actions/alert";
 import { PropTypes } from "prop-types";
 import { register } from "../../actions/auth";
-import { useSearchParams, useNavigate, useParams } from "react-router-dom";
-
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
@@ -40,13 +38,19 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <Link to="/About">About</Link>
       </li>
       <li>
-        <Link to="/user-report">Employee Administration</Link>
+        <Link to="/departments">Departments</Link>
       </li>
       <li>
-        <Link to="/salary-report">Salary Administration</Link>
+        <Link to="/admin-details">Admin Details</Link>
       </li>
       <li>
-        <Link to="/leave-report">Leave Administration</Link>
+        <Link to="/user-report">Employee Details</Link>
+      </li>
+      <li>
+        <Link to="/salary-report">Salary Details</Link>
+      </li>
+      <li>
+        <Link to="/leave-report">Leave Details</Link>
       </li>
       <li>
         <Link to="/feedback-report">Feedback Report</Link>
